@@ -1,0 +1,68 @@
+package com.example.calculator;
+
+import java.util.Scanner;
+
+//LV1.계산기
+//계산기는 2개의 숫자를 받을 수 있고 사칙연산 될 문자를 받을 수 있다.
+//계산기는 exit을 입력할 때 까지 계속해서 값을 받고 연산 결과를 반환한다.
+public class Calculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // 반복문을 통해 무한으로 계산진행
+        while (true) {
+            // 첫 번째 숫자를 입력받고 저장
+            System.out.print("첫 번째 숫자를 입력하세요: ");
+            int number1 = sc.nextInt();
+
+            // 두 번째 숫자를 입력받고 저장
+            System.out.print("두 번째 숫자를 입력하세요: ");
+            int number2 = sc.nextInt();
+
+            // 연산기호를 입력받고 첫 번째 문자만 출력하여 저장
+            System.out.print("사칙연산 기호를 입력하세요 (+, -, *, /): ");
+            char operator = sc.next().charAt(0);
+
+            // 결과를 저장할 변수 초기화
+            int result = 0;
+            // 연산이 유효한지 확인하는 변수
+            boolean validOperation = true;
+
+            // 사칙연산 기호에 맞게 계산
+            switch (operator) {
+                case '+'://더하기
+                    result = number1 + number2;
+                    break;
+                case '-'://빼기
+                    result = number1 - number2;
+                    break;
+                case '*'://곱하기
+                    result = number1 * number2;
+                    break;
+                case '/'://나누기
+                    // 나누기에서 0으로 나눌수 없게 방지, 유효하지 않음 표시
+                    if (number2 == 0) {
+                        System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+                        validOperation = false;
+                    } else {
+                        result = number1 / number2;
+                    }
+                    break;
+                default://잘못된 연산 기호 입력된 경우, 유효하지 않음 표시
+                    System.out.println("잘못된 연산 기호입니다.");
+                    validOperation = false;
+            }
+            // 조건문을 통해 유요한 연산일때 결과 출력
+            if (validOperation) {
+                System.out.println("결과: " + result);
+            }
+            // 메세지 출력
+            System.out.print("더 계산하시겠습니까? (exit 입력 시 종료): ");
+            String exit = sc.next();
+            // 대소문자 관계없이 exit 입력시 종료
+            if (exit.equalsIgnoreCase("exit")) {
+                System.out.println("계산기를 종료합니다.");
+                break;
+            }
+        }
+    }
+}
