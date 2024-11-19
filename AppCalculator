@@ -1,0 +1,43 @@
+package com.example.calculator;
+
+import java.util.Scanner;
+
+public class App {
+    public static void main(String[] args) {
+        Calculator2 calculator2 = new Calculator2();//Calculator2 객체 생성
+        Scanner scanner = new Scanner(System.in);//스캐너 객체 생성
+
+        while (true) {
+            System.out.print("첫 번째 숫자를 입력하세요: ");
+            int number1 = scanner.nextInt();
+
+            System.out.print("두 번째 숫자를 입력하세요: ");
+            int number2 = scanner.nextInt();
+
+            System.out.print("사칙연산 기호를 입력하세요 (+, -, *, /): ");
+            char operator = scanner.next().charAt(0);
+
+            //계산 및 결과 출력
+            int result = calculator2.calculate(number1, number2, operator);
+            System.out.println("결과: " + result);
+
+            //현재까지 저장된 연산 결과 목록 출력
+            System.out.println("현재까지 저장된 연산 결과: " + calculator2.getResults());
+
+            //가장 먼저 저장된 데이터를 삭제할지 확인
+            System.out.print("가장 먼저 저장된 데이터를 삭제하시겠습니까? (yes 입력 시 삭제): ");
+            String remove = scanner.next();//삭제할지 확인 여부
+            if (remove.equalsIgnoreCase("yes")) {//yes 입력시 삭제
+                calculator2.removeResult();
+            }
+
+            //더 계산할지 확인
+            System.out.print("더 계산하시겠습니까? (exit 입력 시 종료): ");
+            String exit = scanner.next();//종료할지 확인 여부
+            if (exit.equalsIgnoreCase("exit")) {//exit 입력시 종료
+                System.out.println("계산기를 종료합니다.");//메시지 출력
+                break;
+            }
+        }
+    }
+}
