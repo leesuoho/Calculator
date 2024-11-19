@@ -1,0 +1,68 @@
+package com.example.calculator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+//LV2. 계산기
+//계산된 결과 값들을 기록하는 컬렉션을 만든다.
+//컬렉션의 가장 먼저 저장된 데이터를 삭제하는 기능을 만든다.
+public class Calculator2 {
+    //계산 결과를 저장하는 리스트
+    private List<Integer> results;
+
+    //생성자, 리스트 결과 초기화
+    public Calculator2() {
+        results = new ArrayList<>();
+    }
+
+    //양의 정수 2개와 연사자를 받아, 결과 값을 반환
+    public int calculate(int number1, int number2, char operator) {
+        int result = 0;
+
+        switch (operator) {
+            case '+':
+                result = number1 + number2;
+                break;
+            case '-':
+                result = number1 - number2;
+                break;
+            case '*':
+                result = number1 * number2;
+                break;
+            case '/':
+                if (number2 == 0) {
+                    System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+                    return 0;//결과 0 반환
+                } else {
+                    result = number1 / number2;
+                }
+                break;
+            default:
+                System.out.println("잘못된 연산 기호입니다.");
+                return 0;//잘못된 연산일 경우 0 반환
+        }
+        results.add(result);//결과 값을 리스트에 추가
+        return result;//결과 값 반환
+    }
+
+    //결과 리스트를 반환, 외부에서 직접 수정할 수 없도록 방지(캡슐화)
+    public List<Integer> getResults() {
+        return new ArrayList<>(results);//결과 리스트의 복사본을 생성하여 반환
+    }
+
+    //결과 리스트를 설정, 객체의 내부 상태를 보호하고 외부에서의 직접적인 조작을 방지(캡슐화)
+    public void setResults(List<Integer> results) {
+        this.results = new ArrayList<>(results);//전달된 결과 리스트를 새로 복사하여 설정
+    }
+
+    //가장 먼저 추가된 데이터를 삭제하는 메서드
+    public void removeResult() {
+        if (!results.isEmpty()) {//리스트가 비어있지 않다면 첫 번째 요소를 삭제
+            results.remove(0);//가장 먼저 저장된 데이터 삭제
+            System.out.println("가장 먼저 저정된 데이터가 삭제되었습니다.");
+        } else {
+            System.out.println("저장된 데이터가 없습니다.");//리스트가 비어있다면 메시지 출력
+        }
+    }
+}
